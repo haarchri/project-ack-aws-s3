@@ -1,0 +1,34 @@
+apiVersion: meta.dev.upbound.io/v2alpha1
+kind: Project
+metadata:
+  name: project-ack-aws-s3
+spec:
+  apiDependencies:
+  - git:
+      path: helm/crds
+      ref: v1.0.35
+      repository: https://github.com/aws-controllers-k8s/s3-controller
+    type: crd
+  - k8s:
+      version: v1.33.0
+    type: k8s
+  dependsOn:
+  - apiVersion: pkg.crossplane.io/v1
+    kind: Function
+    package: xpkg.upbound.io/crossplane-contrib/function-auto-ready
+    version: '>=v0.0.0'
+  - apiVersion: pkg.upbound.io/v1beta1
+    kind: AddOn
+    package: xpkg.upbound.io/uchris/addon-ack
+    version: 46.30.20
+  description: |
+    An example Upbound control plane project for Amazon Web Services (AWS) using
+    AWS Controllers for Kubernetes (ACK) to manage S3 resources.
+  license: Apache-2.0
+  maintainer: Upbound User <user@example.com>
+  readme: |
+    An example Upbound control plane project for Amazon Web Services (AWS) using
+    AWS Controllers for Kubernetes (ACK). This project defines a new
+    `StorageBucket` API, which is powered by AWS S3 using the ACK S3 Controller.
+  repository: xpkg.upbound.io/uchris/project-ack-aws-s3
+  source: github.com/uchris/project-template-aws-s3

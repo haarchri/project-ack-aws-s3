@@ -1,0 +1,28 @@
+name: Composition Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+jobs:
+  composition-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Install up
+        uses: upbound/action-up@v1
+        with:
+          skip-login: true
+          channel: main
+          version: v0.41.0-0.rc.0.21.g7e317ab8
+
+      - name: Build project
+        run: up project build
+
+      - name: Run composition tests
+        run: up test run tests/*
